@@ -30,7 +30,6 @@ jobs:
           # GitHub Pages serves the project site under /<repo>/.
           VITE_BASE: /${{ github.event.repository.name }}/
           VITE_DROPBOX_APP_KEY: ${{ vars.VITE_DROPBOX_APP_KEY }}
-          VITE_OPENROUTER_CLIENT_ID: ${{ vars.VITE_OPENROUTER_CLIENT_ID }}
 
       # SPA fallback so a hard refresh on a deep link still loads the app.
       - run: cp dist/index.html dist/404.html

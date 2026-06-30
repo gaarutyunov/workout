@@ -36,8 +36,10 @@ app uses PKCE everywhere):
 | Variable | Purpose |
 |---|---|
 | `VITE_DROPBOX_APP_KEY` | Dropbox app key (Scoped access, **App folder**). Registered once by you; users don't register their own. Leave blank to run fully offline. |
-| `VITE_OPENROUTER_CLIENT_ID` | Optional OpenRouter OAuth client id. Users can also just paste an API key. |
 | `VITE_BASE` | Vite base path. Defaults to `/workout/` for GitHub Pages. |
+
+> OpenRouter needs no build-time config — its OAuth PKCE flow uses no client id, so
+> users either connect with one click or paste an API key, both handled at runtime.
 
 ### OAuth redirect URIs
 
@@ -75,9 +77,9 @@ every push to `main` (via `JamesIves/github-pages-deploy-action`).
 `.github/workflows/pr-preview.yml` deploys per-PR previews under `pr-preview/pr-<n>/`
 (via `rossjrw/pr-preview-action`); the main deploy uses `clean-exclude: pr-preview/`.
 
-Set `VITE_DROPBOX_APP_KEY` / `VITE_OPENROUTER_CLIENT_ID` as repository **Variables**
-(Settings → Secrets and variables → Actions → Variables) if you want OAuth configured
-in the deployed build.
+Set `VITE_DROPBOX_APP_KEY` as a repository **Variable**
+(Settings → Secrets and variables → Actions → Variables) if you want Dropbox sync
+configured in the deployed build.
 
 ## Importing data
 

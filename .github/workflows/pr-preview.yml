@@ -33,7 +33,6 @@ jobs:
           # Assets must resolve under the preview subpath.
           VITE_BASE: /${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.number }}/
           VITE_DROPBOX_APP_KEY: ${{ vars.VITE_DROPBOX_APP_KEY }}
-          VITE_OPENROUTER_CLIENT_ID: ${{ vars.VITE_OPENROUTER_CLIENT_ID }}
 
       - if: github.event.action != 'closed'
         run: cp dist/index.html dist/404.html
