@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import type { AppDatabase } from '../db/database';
 import { getDatabase } from '../db/database';
-import { seedIfEmpty } from '../db/seed';
 import { SyncManager } from '../sync/syncManager';
 import { completeAuthFromRedirect as completeDropbox } from '../sync/dropbox/auth';
 import { completeAuthFromRedirect as completeOpenRouter } from '../ai/openrouter';
@@ -26,7 +25,8 @@ export function DatabaseProvider({ children }: { children: ReactNode }) {
         await completeOpenRouter().catch((e) => console.warn('OpenRouter auth:', e));
 
         const db = await getDatabase();
-        await seedIfEmpty(db);
+        // No bundled seed data — the database starts empty and the user loads
+        // their own data via the Import page (§9) or it arrives over Dropbox sync.
         const sync = new SyncManager(db);
         sync.start(); // no-op unless Dropbox is connected
         if (!cancelled) setValue({ db, sync });

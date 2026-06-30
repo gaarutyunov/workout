@@ -25,8 +25,9 @@ npm run build    # tsc --noEmit && vite build → dist/
 npm test         # vitest (schema + logic tests)
 ```
 
-On first run the app seeds itself from [`public/fitness_import.json`](./public/fitness_import.json)
-(the companion data file, which doubles as the import example).
+The database starts **empty** — no data ships in the repo. Load your own via the
+**Import** page (paste notes into any AI assistant with the in-app prompt template,
+upload the JSON), or let it arrive over Dropbox sync. See [Importing data](#importing-data).
 
 ## Configuration
 
