@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <!--
+      Tight CSP: no backend to hide secrets behind, so we restrict origins to
+      the API hosts the app actually talks to (Dropbox + OpenRouter). 'unsafe-inline'
+      on style-src is needed by recharts/day-picker; scripts stay self-only.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.dropbox.com https://content.dropboxapi.com https://www.dropbox.com https://openrouter.ai; font-src 'self' data:; base-uri 'self'; form-action 'self' https://www.dropbox.com https://openrouter.ai"
+    />
+    <title>Fitness Tracker</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          # GitHub Pages serves the project site under /<repo>/.
+          VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_DROPBOX_APP_KEY: ${{ vars.VITE_DROPBOX_APP_KEY }}
+          VITE_OPENROUTER_CLIENT_ID: ${{ vars.VITE_OPENROUTER_CLIENT_ID }}
+
+      # SPA fallback so a hard refresh on a deep link still loads the app.
+      - run: cp dist/index.html dist/404.html
+
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          # Don't wipe PR previews on a main deploy.
+          clean-exclude: pr-preview/
