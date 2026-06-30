@@ -1,5 +1,3 @@
-import Ajv, { type ValidateFunction } from 'ajv';
-import addFormats from 'ajv-formats';
 import type { RxJsonSchema } from 'rxdb';
 import {
   activitiesSchema,
@@ -16,16 +14,13 @@ import {
   workoutsSchema,
 } from '../db/schemas';
 import type { CollectionName } from '../db/types';
+import { validateAgainstSchema } from './jsonSchema';
 
 // §6/§8.6/§9: the same per-collection schemas validate (a) tool output before it
-// touches RxDB and (b) imported documents before bulk-upsert. Ajv ignores RxDB-only
-// keywords (`version`, `primaryKey`, `indexes`) via strict:false.
+// touches RxDB and (b) imported documents before bulk-upsert. Validation runs through
+// the eval-free validator in ./jsonSchema (Ajv needs `new Function`, which the app's
+// strict CSP forbids — see that file's header).
 
-const ajv = new Ajv({ allErrors: true, strict: false, coerceTypes: false });
-addFormats(ajv);
-
-// `muscles` is a reference collection with no housekeeping fields but still part
-// of the import file. Map every importable collection to its JSON Schema.
 const SCHEMAS: Record<string, RxJsonSchema<any>> = {
   profile: profileSchema,
   muscles: musclesSchema,
@@ -41,17 +36,6 @@ const SCHEMAS: Record<string, RxJsonSchema<any>> = {
   menuItems: menuItemsSchema,
 };
 
-const validators = new Map<string, ValidateFunction>();
-
-function validatorFor(collection: string): ValidateFunction | null {
-  if (validators.has(collection)) return validators.get(collection)!;
-  const schema = SCHEMAS[collection];
-  if (!schema) return null;
-  const fn = ajv.compile(schema);
-  validators.set(collection, fn);
-  return fn;
-}
-
 export interface RowError {
   index: number;
   id?: string;
@@ -63,27 +47,24 @@ export interface ValidationResult<T> {
   errors: RowError[];
 }
 
-function formatErrors(fn: ValidateFunction): string[] {
-  return (fn.errors ?? []).map((e) => `${e.instancePath || '/'} ${e.message ?? 'invalid'}`);
-}
-
 /** Validate an array of docs against a collection schema; partition into valid + errors. */
 export function validateRows<T extends { id?: string }>(
   collection: CollectionName,
   rows: unknown[],
 ): ValidationResult<T> {
-  const fn = validatorFor(collection);
+  const schema = SCHEMAS[collection];
   const result: ValidationResult<T> = { valid: [], errors: [] };
-  if (!fn) {
+  if (!schema) {
     result.errors.push({ index: -1, errors: [`Unknown collection: ${collection}`] });
     return result;
   }
   rows.forEach((row, index) => {
-    if (fn(row)) {
+    const issues = validateAgainstSchema(schema, row);
+    if (issues.length === 0) {
       result.valid.push(row as T);
     } else {
       const id = (row as { id?: string })?.id;
-      result.errors.push({ index, id, errors: formatErrors(fn) });
+      result.errors.push({ index, id, errors: issues });
     }
   });
   return result;
@@ -91,7 +72,8 @@ export function validateRows<T extends { id?: string }>(
 
 /** Validate a single document; returns null if valid, else an error list. */
 export function validateDoc(collection: CollectionName, doc: unknown): string[] | null {
-  const fn = validatorFor(collection);
-  if (!fn) return [`Unknown collection: ${collection}`];
-  return fn(doc) ? null : formatErrors(fn);
+  const schema = SCHEMAS[collection];
+  if (!schema) return [`Unknown collection: ${collection}`];
+  const issues = validateAgainstSchema(schema, doc);
+  return issues.length === 0 ? null : issues;
 }

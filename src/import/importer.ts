@@ -3,7 +3,7 @@ import { getDeviceId } from '../lib/device';
 import { validateRows, type RowError } from '../lib/validation';
 import type { CollectionName } from '../db/types';
 
-// §9: load → Ajv-validate each array against the per-collection schema → bulkUpsert
+// §9: load → schema-validate each array against the per-collection schema → bulkUpsert
 // into the matching RxDB collection → report per-row errors. Importing the same id
 // again updates that doc (idempotent). `updatedAt`/`deviceId` are added on ingest;
 // `muscles` is a reference set with no housekeeping fields.

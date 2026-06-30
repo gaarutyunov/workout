@@ -18,7 +18,7 @@ import { recomputeNutritionDay } from '../db/nutrition';
 import { todayISO, weekdayOf } from '../lib/dates';
 
 // §8.2: the agent's typed tool surface. Every write tool stamps housekeeping fields
-// (via writeDoc), Ajv-validates, and upserts on a deterministic id, so re-runs are
+// (via writeDoc), schema-validates, and upserts on a deterministic id, so re-runs are
 // idempotent. Read tools never guess — the model must call them every turn.
 
 export interface ToolContext {

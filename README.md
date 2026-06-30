@@ -13,7 +13,7 @@ metrics, an interactive muscle map, and an AI coach. Implements [`SPEC.md`](./SP
 ## Tech stack
 
 React 18 + Vite (TypeScript) · RxDB (Dexie/IndexedDB) · custom Dropbox replication
-plugin · Ajv validation · `react-body-highlighter` · Vercel AI SDK + OpenRouter ·
+plugin · eval-free JSON Schema validation (CSP-safe) · `react-body-highlighter` · Vercel AI SDK + OpenRouter ·
 GitHub Pages.
 
 ## Local development
@@ -67,7 +67,7 @@ Key directories:
 src/db/        RxDB schemas, database, conflict handler, write path
 src/sync/      Dropbox OAuth (PKCE), API client, replication plugin, sync manager
 src/ai/        OpenRouter auth, agent tool surface, system prompt, agent loop
-src/import/    Ajv-validated import + copyable prompt template
+src/import/    schema-validated import + copyable prompt template
 src/pages/     Dashboard, Calendar, Body map, Nutrition, Plan, History, Chat, Import, Settings
 ```
 
@@ -85,5 +85,5 @@ configured in the deployed build.
 ## Importing data
 
 Open **Import**, copy the prompt template, paste your free-form notes plus the template
-into any AI assistant, and upload the JSON it returns. Each collection is Ajv-validated
+into any AI assistant, and upload the JSON it returns. Each collection is schema-validated
 and bulk-upserted; re-importing the same ids updates those documents.

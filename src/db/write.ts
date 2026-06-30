@@ -4,7 +4,7 @@ import type { AppDatabase } from './database';
 import type { CollectionName } from './types';
 
 // Central write path used by both the AI tools (§8.2) and the UI. Every write
-// stamps `updatedAt` (now) + `deviceId`, Ajv-validates against the §6 schema, then
+// stamps `updatedAt` (now) + `deviceId`, schema-validates against the §6 schema, then
 // upserts. Deterministic ids (§6.13) make this idempotent: same id → corrects, not
 // duplicates.
 
@@ -36,7 +36,7 @@ export class ValidationError extends Error {
  * Throws ValidationError (returned to the model on the tool path) if invalid.
  *
  * Input is intentionally a loose record: callers spread partial docs and RxDB
- * document JSON (which is deep-readonly), and the real guarantee is the Ajv
+ * document JSON (which is deep-readonly), and the real guarantee is the schema
  * validation below, not the static shape.
  */
 export async function writeDoc<T extends { id: string } = { id: string }>(
