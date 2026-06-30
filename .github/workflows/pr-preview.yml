@@ -32,7 +32,8 @@ jobs:
         env:
           # Assets must resolve under the preview subpath.
           VITE_BASE: /${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.number }}/
-          VITE_DROPBOX_APP_KEY: ${{ vars.VITE_DROPBOX_APP_KEY }}
+          # Accept the app key from a repo Variable or Secret (see deploy.yml).
+          VITE_DROPBOX_APP_KEY: ${{ vars.VITE_DROPBOX_APP_KEY || secrets.VITE_DROPBOX_APP_KEY }}
 
       - if: github.event.action != 'closed'
         run: cp dist/index.html dist/404.html

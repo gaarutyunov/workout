@@ -29,7 +29,10 @@ jobs:
         env:
           # GitHub Pages serves the project site under /<repo>/.
           VITE_BASE: /${{ github.event.repository.name }}/
-          VITE_DROPBOX_APP_KEY: ${{ vars.VITE_DROPBOX_APP_KEY }}
+          # The Dropbox app key is public (it ships in the bundle), so a repo
+          # Variable is the natural home — but accept a Secret too, since that's an
+          # easy mix-up. `vars.X || secrets.X` takes whichever is set.
+          VITE_DROPBOX_APP_KEY: ${{ vars.VITE_DROPBOX_APP_KEY || secrets.VITE_DROPBOX_APP_KEY }}
 
       # SPA fallback so a hard refresh on a deep link still loads the app.
       - run: cp dist/index.html dist/404.html
