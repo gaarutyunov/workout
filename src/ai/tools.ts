@@ -465,7 +465,7 @@ export function createTools(ctx: ToolContext): Record<string, Tool> {
         const existing = await db.loggedExercises.findOne(leId).exec();
         if (!existing) return { ok: false, error: `No logged exercise ${leId}` };
         const prevNote = existing.note ? `${existing.note} | ` : '';
-        const merged = { ...existing.toJSON(), note: `${prevNote}⚠ deviation: ${reason}` };
+        const merged = { ...existing.toJSON(), note: `${prevNote}[deviation] ${reason}` };
         const doc = await writeDoc(db, 'loggedExercises', merged);
         return { ok: true, id: doc.id };
       },

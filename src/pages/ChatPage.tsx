@@ -7,6 +7,7 @@ import { runAgentTurn } from '../ai/agent';
 import { hasApiKey } from '../ai/openrouter';
 import { chatSessionId } from '../lib/ids';
 import { todayISO, shortLabel } from '../lib/dates';
+import { Icon } from '../components/Icon';
 import type { ChatMessage, ChatSession } from '../db/types';
 
 const QUICK_REPLIES = ['Log workout', 'Log meal', 'Just chat'];
@@ -129,7 +130,7 @@ export function ChatPage() {
     } catch (e) {
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: `⚠ ${(e as Error).message}`, ts: new Date().toISOString() },
+        { role: 'assistant', content: `Error: ${(e as Error).message}`, ts: new Date().toISOString() },
       ]);
     } finally {
       setBusy(false);
@@ -157,10 +158,26 @@ export function ChatPage() {
       <div className="chat-log" ref={logRef}>
         {messages.map((m, i) => (
           <div key={i} className={`msg ${m.role}`}>
-            {m.role === 'tool' ? `🔧 ${m.content}` : m.content}
+            {m.role === 'tool' ? (
+              <span className="row" style={{ gap: 6 }}>
+                <Icon name="tool" size={14} /> {m.content}
+              </span>
+            ) : m.content?.startsWith('Error:') ? (
+              <span className="row" style={{ gap: 6, alignItems: 'flex-start' }}>
+                <Icon name="alert" size={14} /> {m.content.replace(/^Error:\s*/, '')}
+              </span>
+            ) : (
+              m.content
+            )}
           </div>
         ))}
-        {busy && toolLog.length > 0 && <div className="msg tool">🔧 {toolLog.join(' → ')}</div>}
+        {busy && toolLog.length > 0 && (
+          <div className="msg tool">
+            <span className="row" style={{ gap: 6 }}>
+              <Icon name="tool" size={14} /> {toolLog.join(' → ')}
+            </span>
+          </div>
+        )}
         {streaming && <div className="msg assistant">{streaming}</div>}
         {busy && !streaming && <div className="msg assistant muted">thinking…</div>}
       </div>

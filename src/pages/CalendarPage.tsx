@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDatabase } from '../context/DatabaseContext';
 import { useRxQuery } from '../hooks/useRxQuery';
 import { todayISO, toISODate } from '../lib/dates';
+import { Icon } from '../components/Icon';
 import type { Activity, ChatSession, Workout } from '../db/types';
 
 const DOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -129,13 +130,17 @@ export function CalendarPage() {
             <>
               {sel.workouts.map((w) => (
                 <div key={w.id} className="row spread">
-                  <span>🏋️ {w.focus ?? 'Workout'}</span>
+                  <span className="row" style={{ gap: 6 }}>
+                    <Icon name="dumbbell" size={16} /> {w.focus ?? 'Workout'}
+                  </span>
                   <span className="muted">{w.completed ? 'done' : 'planned'}</span>
                 </div>
               ))}
               {sel.activities.map((a) => (
                 <div key={a.id} className="row spread">
-                  <span>🤸 {a.type}</span>
+                  <span className="row" style={{ gap: 6 }}>
+                    <Icon name="activity" size={16} /> {a.type}
+                  </span>
                   <span className="muted">{a.durationMin ? `${a.durationMin} min` : ''}</span>
                 </div>
               ))}
@@ -146,7 +151,9 @@ export function CalendarPage() {
                   style={{ cursor: 'pointer' }}
                   onClick={() => navigate(`/chat?session=${c.id}`)}
                 >
-                  <span>💬 {c.title ?? 'Chat'}</span>
+                  <span className="row" style={{ gap: 6 }}>
+                    <Icon name="chat" size={16} /> {c.title ?? 'Chat'}
+                  </span>
                   <span className="badge">{c.mode}</span>
                 </div>
               ))}
