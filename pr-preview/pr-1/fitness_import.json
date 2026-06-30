@@ -1,0 +1,118 @@
+{
+  "meta": { "schemaVersion": 1, "generatedAt": "2026-06-30", "source": "seed" },
+  "profile": [
+    {
+      "id": "profile-self",
+      "displayName": "Germán",
+      "sex": "male",
+      "age": 34,
+      "heightCm": 178,
+      "startWeightKg": 82,
+      "goal": "Body recomposition — lose fat, hold/gain muscle",
+      "programStart": "2026-05-04",
+      "splitType": "5-day muscle-group split + weekend sport",
+      "weekendActivities": ["padel", "surf"],
+      "targets": {
+        "proteinG": 150,
+        "kcalLow": 2000,
+        "kcalHigh": 2300,
+        "carbsG": 220,
+        "fatG": 70,
+        "hydrationLLow": 2.5,
+        "hydrationLHigh": 3.5,
+        "fiberG": 30
+      },
+      "constraints": ["Mild left-shoulder impingement — avoid heavy behind-neck"],
+      "asymmetryProtocol": "Unilateral work: lead with the weaker LEFT side, match its reps on the right, add one extra set on the left when energy allows.",
+      "notes": "Trains evenings; padel Sat, surf Sun when waves."
+    }
+  ],
+  "muscles": [
+    { "id": "chest", "label": "Chest", "highlighterSlug": "chest" },
+    { "id": "upper-back", "label": "Upper back", "highlighterSlug": "upper-back" },
+    { "id": "lats", "label": "Lats", "highlighterSlug": "upper-back", "note": "react-body-highlighter has no distinct lats slug; renders on upper-back." },
+    { "id": "trapezius", "label": "Traps", "highlighterSlug": "trapezius" },
+    { "id": "front-deltoids", "label": "Front delts", "highlighterSlug": "front-deltoids" },
+    { "id": "side-deltoids", "label": "Side delts", "highlighterSlug": "front-deltoids", "note": "No dedicated side-delt slug; lateral raises render on front-deltoids." },
+    { "id": "back-deltoids", "label": "Rear delts", "highlighterSlug": "back-deltoids" },
+    { "id": "biceps", "label": "Biceps", "highlighterSlug": "biceps" },
+    { "id": "triceps", "label": "Triceps", "highlighterSlug": "triceps" },
+    { "id": "forearm", "label": "Forearms", "highlighterSlug": "forearm" },
+    { "id": "abs", "label": "Abs", "highlighterSlug": "abs" },
+    { "id": "obliques", "label": "Obliques", "highlighterSlug": "obliques" },
+    { "id": "quadriceps", "label": "Quads", "highlighterSlug": "quadriceps" },
+    { "id": "hamstring", "label": "Hamstrings", "highlighterSlug": "hamstring" },
+    { "id": "gluteal", "label": "Glutes", "highlighterSlug": "gluteal" },
+    { "id": "calves", "label": "Calves", "highlighterSlug": "calves" }
+  ],
+  "exercises": [
+    { "id": "ex-chest-press", "name": "Machine Chest Press", "primaryMuscle": "chest", "secondaryMuscles": ["triceps", "front-deltoids"], "loadType": "machine", "unilateral": false, "category": "compound" },
+    { "id": "ex-incline-db-press", "name": "Incline Dumbbell Press", "primaryMuscle": "chest", "secondaryMuscles": ["front-deltoids", "triceps"], "loadType": "dumbbell_per_hand", "unilateral": false, "category": "compound" },
+    { "id": "ex-pec-fly", "name": "Pec Deck Fly", "primaryMuscle": "chest", "secondaryMuscles": ["front-deltoids"], "loadType": "machine", "unilateral": false, "category": "isolation" },
+    { "id": "ex-triceps-pushdown", "name": "Cable Triceps Pushdown", "primaryMuscle": "triceps", "secondaryMuscles": [], "loadType": "cable", "unilateral": false, "category": "isolation" },
+    { "id": "ex-seated-row", "name": "Seated Cable Row", "primaryMuscle": "upper-back", "secondaryMuscles": ["biceps", "back-deltoids"], "loadType": "cable", "unilateral": false, "category": "compound" },
+    { "id": "ex-lat-pulldown", "name": "Lat Pulldown", "primaryMuscle": "lats", "secondaryMuscles": ["biceps"], "loadType": "cable", "unilateral": false, "category": "compound" },
+    { "id": "ex-biceps-curl", "name": "Dumbbell Biceps Curl", "primaryMuscle": "biceps", "secondaryMuscles": ["forearm"], "loadType": "dumbbell_per_hand", "unilateral": true, "category": "isolation" },
+    { "id": "ex-lateral-raise", "name": "Dumbbell Lateral Raise", "primaryMuscle": "side-deltoids", "secondaryMuscles": ["trapezius"], "loadType": "dumbbell_per_hand", "unilateral": false, "category": "isolation" },
+    { "id": "ex-shoulder-press", "name": "Machine Shoulder Press", "primaryMuscle": "front-deltoids", "secondaryMuscles": ["triceps"], "loadType": "machine", "unilateral": false, "category": "compound" },
+    { "id": "ex-leg-press", "name": "Leg Press", "primaryMuscle": "quadriceps", "secondaryMuscles": ["gluteal", "hamstring"], "loadType": "machine", "unilateral": false, "category": "compound" },
+    { "id": "ex-leg-curl", "name": "Seated Leg Curl", "primaryMuscle": "hamstring", "secondaryMuscles": ["calves"], "loadType": "machine", "unilateral": false, "category": "isolation" },
+    { "id": "ex-calf-raise", "name": "Standing Calf Raise", "primaryMuscle": "calves", "secondaryMuscles": [], "loadType": "machine", "unilateral": false, "category": "isolation" },
+    { "id": "ex-plank", "name": "Plank", "primaryMuscle": "abs", "secondaryMuscles": ["obliques"], "loadType": "bodyweight", "unilateral": false, "category": "core" }
+  ],
+  "planExercises": [
+    { "id": "plan-mon-chest-press", "dayLabel": "Chest & Triceps", "weekday": "monday", "exerciseId": "ex-chest-press", "targetSets": 3, "repLow": 10, "repHigh": 12, "currentWeightKg": 45, "loadType": "machine", "nextProgression": "+5kg when 3×12 clean", "status": "active" },
+    { "id": "plan-mon-incline-db-press", "dayLabel": "Chest & Triceps", "weekday": "monday", "exerciseId": "ex-incline-db-press", "targetSets": 3, "repLow": 8, "repHigh": 10, "currentWeightKg": 22, "loadType": "dumbbell_per_hand", "nextProgression": "+2kg per hand when 3×10 clean", "status": "active" },
+    { "id": "plan-mon-pec-fly", "dayLabel": "Chest & Triceps", "weekday": "monday", "exerciseId": "ex-pec-fly", "targetSets": 3, "repLow": 12, "repHigh": 15, "currentWeightKg": 35, "loadType": "machine", "nextProgression": "+5kg when 3×15", "status": "active" },
+    { "id": "plan-mon-triceps-pushdown", "dayLabel": "Chest & Triceps", "weekday": "monday", "exerciseId": "ex-triceps-pushdown", "targetSets": 3, "repLow": 12, "repHigh": 15, "currentWeightKg": 25, "loadType": "cable", "nextProgression": "+2.5kg when 3×15", "status": "active" },
+    { "id": "plan-tue-seated-row", "dayLabel": "Back & Biceps", "weekday": "tuesday", "exerciseId": "ex-seated-row", "targetSets": 3, "repLow": 10, "repHigh": 12, "currentWeightKg": 50, "loadType": "cable", "nextProgression": "+5kg when 3×12 clean", "status": "ready-to-progress" },
+    { "id": "plan-tue-lat-pulldown", "dayLabel": "Back & Biceps", "weekday": "tuesday", "exerciseId": "ex-lat-pulldown", "targetSets": 3, "repLow": 10, "repHigh": 12, "currentWeightKg": 48, "loadType": "cable", "nextProgression": "+4kg when 3×12", "status": "active" },
+    { "id": "plan-tue-biceps-curl", "dayLabel": "Back & Biceps", "weekday": "tuesday", "exerciseId": "ex-biceps-curl", "targetSets": 3, "repLow": 10, "repHigh": 12, "currentWeightKg": 14, "loadType": "dumbbell_per_hand", "nextProgression": "+2kg per hand when 3×12; lead left", "status": "active", "note": "Unilateral — follow asymmetry protocol." },
+    { "id": "plan-wed-shoulder-press", "dayLabel": "Shoulders & Core", "weekday": "wednesday", "exerciseId": "ex-shoulder-press", "targetSets": 3, "repLow": 8, "repHigh": 10, "currentWeightKg": 30, "loadType": "machine", "nextProgression": "+5kg when 3×10", "status": "active" },
+    { "id": "plan-wed-lateral-raise", "dayLabel": "Shoulders & Core", "weekday": "wednesday", "exerciseId": "ex-lateral-raise", "targetSets": 3, "repLow": 12, "repHigh": 15, "currentWeightKg": 8, "loadType": "dumbbell_per_hand", "nextProgression": "+1kg per hand when 3×15", "status": "active" },
+    { "id": "plan-wed-plank", "dayLabel": "Shoulders & Core", "weekday": "wednesday", "exerciseId": "ex-plank", "targetSets": 3, "repLow": null, "repHigh": null, "currentWeightKg": 0, "loadType": "bodyweight", "nextProgression": "+10s hold when 3×60s", "status": "baseline" },
+    { "id": "plan-thu-leg-press", "dayLabel": "Legs", "weekday": "thursday", "exerciseId": "ex-leg-press", "targetSets": 4, "repLow": 10, "repHigh": 12, "currentWeightKg": 120, "loadType": "machine", "nextProgression": "+10kg when 4×12", "status": "active" },
+    { "id": "plan-thu-leg-curl", "dayLabel": "Legs", "weekday": "thursday", "exerciseId": "ex-leg-curl", "targetSets": 3, "repLow": 10, "repHigh": 12, "currentWeightKg": 40, "loadType": "machine", "nextProgression": "+5kg when 3×12", "status": "active" },
+    { "id": "plan-thu-calf-raise", "dayLabel": "Legs", "weekday": "thursday", "exerciseId": "ex-calf-raise", "targetSets": 4, "repLow": 12, "repHigh": 15, "currentWeightKg": 60, "loadType": "machine", "nextProgression": "+5kg when 4×15", "status": "active" }
+  ],
+  "workouts": [
+    { "id": "w-2026-06-22", "date": "2026-06-22", "weekday": "monday", "focus": "Chest & Triceps", "weekNumber": 8, "programPhase": "accumulation", "completed": true },
+    { "id": "w-2026-06-23", "date": "2026-06-23", "weekday": "tuesday", "focus": "Back & Biceps", "weekNumber": 8, "programPhase": "accumulation", "completed": true }
+  ],
+  "loggedExercises": [
+    { "id": "le-2026-06-22-chest-press", "workoutId": "w-2026-06-22", "exerciseId": "ex-chest-press", "order": 1, "loadType": "machine", "weightKg": 45, "prescribedReps": "10-12", "sets": [ { "set": 1, "reps": 12, "weightKg": 45 }, { "set": 2, "reps": 11, "weightKg": 45 }, { "set": 3, "reps": 10, "weightKg": 45 } ] },
+    { "id": "le-2026-06-22-incline-db-press", "workoutId": "w-2026-06-22", "exerciseId": "ex-incline-db-press", "order": 2, "loadType": "dumbbell_per_hand", "weightKg": 22, "prescribedReps": "8-10", "sets": [ { "set": 1, "reps": 10, "weightKg": 22 }, { "set": 2, "reps": 9, "weightKg": 22 }, { "set": 3, "reps": 8, "weightKg": 22 } ] },
+    { "id": "le-2026-06-22-triceps-pushdown", "workoutId": "w-2026-06-22", "exerciseId": "ex-triceps-pushdown", "order": 3, "loadType": "cable", "weightKg": 25, "prescribedReps": "12-15", "sets": [ { "set": 1, "reps": 15, "weightKg": 25 }, { "set": 2, "reps": 13, "weightKg": 25 }, { "set": 3, "reps": 12, "weightKg": 25 } ] },
+    { "id": "le-2026-06-23-seated-row", "workoutId": "w-2026-06-23", "exerciseId": "ex-seated-row", "order": 1, "loadType": "cable", "weightKg": 50, "prescribedReps": "10-12", "sets": [ { "set": 1, "reps": 12, "weightKg": 50 }, { "set": 2, "reps": 12, "weightKg": 50 }, { "set": 3, "reps": 12, "weightKg": 50 } ], "note": "All sets clean at top of range — ready to progress." },
+    { "id": "le-2026-06-23-biceps-curl", "workoutId": "w-2026-06-23", "exerciseId": "ex-biceps-curl", "order": 2, "loadType": "dumbbell_per_hand", "weightKg": 14, "prescribedReps": "10-12 each", "sets": [ { "set": 1, "reps": 12, "weightKg": 14, "note": "each arm, led left" }, { "set": 2, "reps": 11, "weightKg": 14, "note": "each arm" }, { "set": 3, "reps": 10, "weightKg": 14, "note": "each arm" } ] }
+  ],
+  "meals": [
+    { "id": "m-2026-06-22-breakfast", "date": "2026-06-22", "slot": "breakfast", "description": "Oats, whey, banana", "proteinG": 35, "kcal": 480 },
+    { "id": "m-2026-06-22-lunch", "date": "2026-06-22", "slot": "lunch", "description": "Chicken, rice, salad", "proteinG": 45, "kcal": 620 },
+    { "id": "m-2026-06-22-dinner", "date": "2026-06-22", "slot": "dinner", "description": "Salmon, potatoes, broccoli", "proteinG": 40, "kcal": 640 },
+    { "id": "m-2026-06-22-snack", "date": "2026-06-22", "slot": "snack", "description": "Greek yogurt, berries", "proteinG": 18, "kcal": 180 },
+    { "id": "m-2026-06-23-breakfast", "date": "2026-06-23", "slot": "breakfast", "description": "Eggs, toast, avocado", "proteinG": 28, "kcal": 520 },
+    { "id": "m-2026-06-23-lunch", "date": "2026-06-23", "slot": "lunch", "description": "Turkey wrap", "proteinG": 38, "kcal": 560 }
+  ],
+  "menuItems": [
+    { "id": "menu-oats-whey-banana", "name": "Oats, whey, banana", "defaultSlot": "breakfast", "proteinG": 35, "kcal": 480, "timesLogged": 12, "lastEaten": "2026-06-22", "estimated": false, "source": "history", "tags": ["breakfast", "high-protein"] },
+    { "id": "menu-chicken-rice-salad", "name": "Chicken, rice, salad", "defaultSlot": "lunch", "proteinG": 45, "kcal": 620, "timesLogged": 18, "lastEaten": "2026-06-22", "estimated": false, "source": "history", "tags": ["lunch", "high-protein"] },
+    { "id": "menu-salmon-potatoes-broccoli", "name": "Salmon, potatoes, broccoli", "defaultSlot": "dinner", "proteinG": 40, "kcal": 640, "timesLogged": 9, "lastEaten": "2026-06-22", "estimated": false, "source": "history", "tags": ["dinner"] },
+    { "id": "menu-greek-yogurt-berries", "name": "Greek yogurt, berries", "defaultSlot": "snack", "proteinG": 18, "kcal": 180, "timesLogged": 22, "lastEaten": "2026-06-22", "estimated": false, "source": "history", "tags": ["snack"] },
+    { "id": "menu-eggs-toast-avocado", "name": "Eggs, toast, avocado", "defaultSlot": "breakfast", "proteinG": 28, "kcal": 520, "timesLogged": 7, "lastEaten": "2026-06-23", "estimated": false, "source": "history", "tags": ["breakfast"] },
+    { "id": "menu-turkey-wrap", "name": "Turkey wrap", "defaultSlot": "lunch", "proteinG": 38, "kcal": 560, "timesLogged": 5, "lastEaten": "2026-06-23", "estimated": true, "source": "history", "tags": ["lunch"] }
+  ],
+  "nutritionDays": [
+    { "id": "nd-2026-06-22", "date": "2026-06-22", "dayType": "gym", "tracked": true, "proteinG": 138, "kcal": 1920, "vsProteinTarget": "-12g" },
+    { "id": "nd-2026-06-23", "date": "2026-06-23", "dayType": "gym", "tracked": true, "proteinG": 66, "kcal": 1080, "vsProteinTarget": "partial day" }
+  ],
+  "activities": [
+    { "id": "act-2026-06-21", "date": "2026-06-21", "type": "surf", "durationMin": 90, "kcalBurned": 520, "note": "Morning session, chest-high." },
+    { "id": "act-2026-06-20", "date": "2026-06-20", "type": "padel", "durationMin": 75, "kcalBurned": 480 }
+  ],
+  "bodyMetrics": [
+    { "id": "bm-2026-06-01", "date": "2026-06-01", "weightKg": 81.2, "bodyFatPct": 19.5, "waistCm": 86 },
+    { "id": "bm-2026-06-15", "date": "2026-06-15", "weightKg": 80.4, "bodyFatPct": 18.9, "waistCm": 85 },
+    { "id": "bm-2026-06-29", "date": "2026-06-29", "weightKg": 79.8, "bodyFatPct": 18.4, "waistCm": 84 }
+  ]
+}
