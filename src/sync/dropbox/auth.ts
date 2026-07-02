@@ -1,4 +1,5 @@
 import { challengeFromVerifier, randomState, randomVerifier } from './pkce';
+import { clearPendingOAuth, getPendingOAuth, setPendingOAuth } from '../../lib/oauthPending';
 
 // Dropbox OAuth (Authorization Code + PKCE, token_access_type=offline, no secret).
 // Tokens live in browser storage (§4, §11). The refresh token is long-lived and
@@ -46,6 +47,8 @@ export async function beginAuth(): Promise<void> {
   const state = randomState();
   localStorage.setItem(STORAGE.verifier, verifier);
   localStorage.setItem(STORAGE.state, state);
+  // Route the shared `?code=` callback back to this provider (not OpenRouter).
+  setPendingOAuth('dropbox');
 
   const params = new URLSearchParams({
     client_id: APP_KEY,
@@ -64,6 +67,9 @@ export async function beginAuth(): Promise<void> {
  * code was present and exchanged. Call once on app load.
  */
 export async function completeAuthFromRedirect(): Promise<boolean> {
+  // Only act on our own callback — OpenRouter uses the same `?code=` redirect.
+  if (getPendingOAuth() !== 'dropbox') return false;
+
   const url = new URL(window.location.href);
   const code = url.searchParams.get('code');
   const returnedState = url.searchParams.get('state');
@@ -73,6 +79,7 @@ export async function completeAuthFromRedirect(): Promise<boolean> {
   const verifier = localStorage.getItem(STORAGE.verifier);
   // Clean the query string regardless of outcome so a refresh can't replay it.
   cleanUrl();
+  clearPendingOAuth();
   if (!verifier || !expectedState || returnedState !== expectedState) {
     throw new Error('OAuth state mismatch — aborting token exchange.');
   }
