@@ -1,15 +1,21 @@
+/* Restyled to the GA ui-kit house style (@gaarutyunov/ui-kit): pure-black Geist
+   dark theme, matching garutyunov.com and stereoscope. The app is already fully
+   token-driven, so remapping these :root variables onto ui-kit's tokens.css
+   values (--ga-*) re-themes the whole stylesheet in one place. A deeper
+   component-level migration to <ga-*> elements is tracked separately (see the
+   ui-kit gap issue this task is blocked on). */
 :root {
-  --bg: #0f172a;
-  --panel: #1e293b;
-  --panel-2: #273449;
-  --border: #334155;
-  --text: #e2e8f0;
-  --muted: #94a3b8;
-  --accent: #38bdf8;
-  --accent-2: #22c55e;
-  --warn: #f59e0b;
-  --danger: #ef4444;
-  --radius: 12px;
+  --bg: #000000;      /* --ga-bg */
+  --panel: #1a1a1a;   /* --ga-bg-elev */
+  --panel-2: #1f1f1f; /* --ga-bg-elev-hover */
+  --border: #2a2a2a;  /* --ga-border-strong */
+  --text: #ededed;    /* --ga-fg */
+  --muted: #878787;   /* --ga-muted */
+  --accent: #54a2ff;  /* --ga-accent (blue) */
+  --accent-2: #00c758;/* --ga-green */
+  --warn: #fcbb00;    /* --ga-amber */
+  --danger: #ff6568;  /* --ga-red */
+  --radius: 8px;      /* --ga-radius-lg */
   color-scheme: dark;
 }
 
@@ -27,7 +33,7 @@ body,
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }
