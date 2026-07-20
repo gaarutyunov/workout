@@ -1,0 +1,46 @@
+name: PR Preview
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pr-preview-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Skip the build on the "closed" event — the action just tears down the preview.
+      - if: github.event.action != 'closed'
+        run: npm ci
+
+      - if: github.event.action != 'closed'
+        run: npm run build
+        env:
+          # Assets must resolve under the preview subpath.
+          VITE_BASE: /${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.number }}/
+          # Accept the app key from a repo Variable or Secret (see deploy.yml).
+          VITE_DROPBOX_APP_KEY: ${{ vars.VITE_DROPBOX_APP_KEY || secrets.VITE_DROPBOX_APP_KEY }}
+
+      - if: github.event.action != 'closed'
+        run: cp dist/index.html dist/404.html
+
+      - name: Deploy preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
