@@ -3,19 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#000000" />
     <!--
       Tight CSP: no backend to hide secrets behind, so we restrict origins to
       the API hosts the app actually talks to (Dropbox + OpenRouter). 'unsafe-inline'
       on style-src is needed by recharts/day-picker; scripts stay self-only.
+      Google Fonts (house typography) added: stylesheet from fonts.googleapis.com,
+      font files from fonts.gstatic.com.
     -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.dropbox.com https://content.dropboxapi.com https://www.dropbox.com https://openrouter.ai; font-src 'self' data:; base-uri 'self'; form-action 'self' https://www.dropbox.com https://openrouter.ai"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self' https://api.dropbox.com https://content.dropboxapi.com https://www.dropbox.com https://openrouter.ai; font-src 'self' data: https://fonts.gstatic.com; base-uri 'self'; form-action 'self' https://www.dropbox.com https://openrouter.ai"
     />
-    <title>Fitness Tracker</title>
-    <script type="module" crossorigin src="/workout/assets/index-CPq3cMky.js"></script>
-    <link rel="stylesheet" crossorigin href="/workout/assets/index-CvBGLmLv.css">
+    <title>Fitness Tracker — serverless workout &amp; body-recomposition tracker</title>
+    <meta
+      name="description"
+      content="A serverless, browser-only body-recomposition tracker: workouts, nutrition, a body map, progress charts, and an AI coach — all client-side, synced to your own Dropbox."
+    />
+
+    <!-- Open Graph / link-preview metadata. Consumed by garutyunov.com's Pet
+         Projects section, which crawls this page at build time. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://workout.garutyunov.com/" />
+    <meta property="og:title" content="Fitness Tracker" />
+    <meta
+      property="og:description"
+      content="A serverless body-recomposition tracker — workouts, nutrition, body map and an AI coach, all in your browser."
+    />
+    <meta property="og:image" content="https://workout.garutyunov.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="article:published_time" content="2025-05-20" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fitness Tracker" />
+    <meta
+      name="twitter:description"
+      content="A serverless body-recomposition tracker — workouts, nutrition, body map and an AI coach, all in your browser."
+    />
+    <meta name="twitter:image" content="https://workout.garutyunov.com/og-image.png" />
+
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+    <!-- Fonts: same families as garutyunov.com / stereoscope — the GA ui-kit
+         house typography (Geist / Geist Mono / Fira Mono). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Fira+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/workout/assets/index-CHiYdhpL.js"></script>
+    <link rel="stylesheet" crossorigin href="/workout/assets/index-B7lWVIG3.css">
   </head>
   <body>
     <div id="root"></div>
