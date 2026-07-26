@@ -14,7 +14,9 @@ const STORAGE = {
 };
 
 const AUTHORIZE_URL = 'https://www.dropbox.com/oauth2/authorize';
-const TOKEN_URL = 'https://api.dropbox.com/oauth2/token';
+// Token exchange is an API call, so it belongs on api.dropboxapi.com too;
+// api.dropbox.com is the website host (#4).
+const TOKEN_URL = 'https://api.dropboxapi.com/oauth2/token';
 
 export function isConfigured(): boolean {
   return APP_KEY.length > 0;
