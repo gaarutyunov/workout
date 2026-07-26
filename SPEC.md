@@ -30,10 +30,10 @@ A single-page web app for tracking workouts, nutrition, body metrics, and an int
 |Calendar           |`react-day-picker` or a light custom month grid over the `workouts`/`activities` collections|
 |Import validation  |Ajv (JSON Schema) — validate before bulk upsert                                             |
 |AI agent (optional)|OpenRouter (OAuth PKCE, user’s key) + Vercel AI SDK, client-side                            |
-|Hosting            |GitHub Pages from `gh-pages` branch                                                         |
+|Hosting            |GitHub Pages from `gh-pages` branch, on the custom domain `workout.garutyunov.com`          |
 |CI / previews      |GitHub Actions: build + deploy; `rossjrw/pr-preview-action` for PR previews                 |
 
-Set Vite `base: '/<repo-name>/'` and use `HashRouter` (or copy `index.html` → `404.html`) so deep links don’t 404 on Pages.
+Set Vite `base: './'` (relative) and use `HashRouter` (or copy `index.html` → `404.html`) so deep links don’t 404 on Pages. A relative base is what lets one bundle serve from the custom-domain root **and** from a PR-preview subpath; an absolute `'/<repo-name>/'` breaks the moment a custom domain moves the site to the root.
 
 -----
 
@@ -633,9 +633,10 @@ The app shows two things: a **copyable prompt template** and the **JSON schema**
 
 ## 10. Deployment
 
-- **Build/deploy:** GitHub Actions builds the Vite app and deploys `dist/` to `gh-pages` (`JamesIves/github-pages-deploy-action`). Vite `base: '/<repo>/'`; copy `index.html`→`404.html` or use `HashRouter`.
-- **PR previews:** `rossjrw/pr-preview-action` deploys each PR to `pr-preview/pr-<n>/` and comments the URL; main deploy uses `clean-exclude: pr-preview/` so previews aren’t wiped.
-- **OAuth redirect URIs:** register the Pages URL (and preview URLs if needed) as Dropbox and OpenRouter callbacks. HTTPS only; localhost allowed for dev.
+- **Build/deploy:** GitHub Actions builds the Vite app and deploys `dist/` to `gh-pages` (`JamesIves/github-pages-deploy-action`). Vite `base: './'`; copy `index.html`→`404.html` or use `HashRouter`.
+- **Custom domain:** `public/CNAME` publishes the site at `https://workout.garutyunov.com/` — the **root**, not `/<repo>/`. Nothing in the build may assume a repo-name path segment; the relative base is what keeps that true, and neither workflow sets `VITE_BASE`.
+- **PR previews:** `rossjrw/pr-preview-action` deploys each PR to `pr-preview/pr-<n>/` (i.e. `https://workout.garutyunov.com/pr-preview/pr-<n>/`) and comments the URL; main deploy uses `clean-exclude: pr-preview/` so previews aren’t wiped.
+- **OAuth redirect URIs:** the app derives its redirect URI from the live location (`origin + pathname`), so the **custom-domain URL** `https://workout.garutyunov.com/` must be registered as the Dropbox and OpenRouter callback — the old `https://gaarutyunov.github.io/workout/` no longer matches. Preview URLs need registering only to test OAuth from a preview. HTTPS only; localhost allowed for dev.
 
 -----
 
