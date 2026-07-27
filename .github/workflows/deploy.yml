@@ -25,10 +25,10 @@ jobs:
 
       - run: npm ci
 
+      # No VITE_BASE: vite.config.ts uses a relative base, so the same bundle
+      # works at the custom domain root and at any preview subpath.
       - run: npm run build
         env:
-          # GitHub Pages serves the project site under /<repo>/.
-          VITE_BASE: /${{ github.event.repository.name }}/
           # The Dropbox app key is public (it ships in the bundle), so a repo
           # Variable is the natural home — but accept a Secret too, since that's an
           # easy mix-up. `vars.X || secrets.X` takes whichever is set.
