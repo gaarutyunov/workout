@@ -10,10 +10,18 @@
       on style-src is needed by recharts/day-picker; scripts stay self-only.
       Google Fonts (house typography) added: stylesheet from fonts.googleapis.com,
       font files from fonts.gstatic.com.
+
+      Dropbox connect-src hosts. Note api.dropboxapi.com, NOT api.dropbox.com —
+      the latter is the website host and nothing in this app ever fetches it:
+        api.dropboxapi.com     OAuth token exchange + refresh (sync/dropbox/auth.ts)
+                               and every RPC call (sync/dropbox/client.ts)
+        content.dropboxapi.com files/upload + files/download (sync/dropbox/client.ts)
+        www.dropbox.com        the /oauth2/authorize redirect (a navigation, not a
+                               fetch — listed for intent, not because it is required)
     -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self' https://api.dropbox.com https://content.dropboxapi.com https://www.dropbox.com https://openrouter.ai; font-src 'self' data: https://fonts.gstatic.com; base-uri 'self'; form-action 'self' https://www.dropbox.com https://openrouter.ai"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self' https://api.dropboxapi.com https://content.dropboxapi.com https://www.dropbox.com https://openrouter.ai; font-src 'self' data: https://fonts.gstatic.com; base-uri 'self'; form-action 'self' https://www.dropbox.com https://openrouter.ai"
     />
     <title>Fitness Tracker — serverless workout &amp; body-recomposition tracker</title>
     <meta
